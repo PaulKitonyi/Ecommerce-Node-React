@@ -1,8 +1,6 @@
-exports.userSignupValidator = (req, res) => {
+exports.userSignupValidator = (req, res, next) => {
     req.check('name', 'Name is required').notEmpty()
-    req.check('email', 'Email must be between 3 to 32 characters')
-        .matches(/.+\@.+\..+/)
-        .withMessage("Email must contain @")
+    req.check('email', 'Please enter a valid email').isEmail()
         .isLength({
             min: 4,
             max: 32
@@ -12,7 +10,9 @@ exports.userSignupValidator = (req, res) => {
         .isLength({min: 6})
         .withMessage('Password must contain at least 6 characters')
         .matches(/\d/)
-        .withMessage("Password must contain a number");
+        .withMessage("Password must contain a number")
+        .matches(/[A-Z]/)
+        .withMessage("Password must contain at least one uppercase character");
         const errors = req.validationErrors()
         if(errors) {
             const firstError = errors.map(error => error.msg)[0]
