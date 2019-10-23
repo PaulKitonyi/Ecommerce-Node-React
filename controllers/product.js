@@ -13,9 +13,23 @@ exports.create = (req, res) => {
                 error: "Image could not be uploaded"
             });
         }
+
+        const { name, price, category, description, shipping, quantity} = fields;
+
+        if(!name || !price || !category || !description || !shipping || !quantity){
+            return res.status(400).json({
+                error: "All fields should be present"
+            });
+        }
+
         let product = new Product(fields);
 
         if (files.photo) {
+            if(files.photo.size > 1000000){
+                return res.status(400).json({
+                    error: "Image should be less than 1MB in size!!"
+                });
+            }
             product.photo.data = fs.readFileSync(files.photo.path);
             product.photo.contentType = files.photo.type;
         }
