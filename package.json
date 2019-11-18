@@ -19,6 +19,7 @@
   "homepage": "https://github.com/PaulKitonyi/Ecommerce-Node-React#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "braintree": "^2.21.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "dotenv": "^8.1.0",
